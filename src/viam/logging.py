@@ -51,7 +51,8 @@ class _ModuleHandler(logging.Handler):
 
         try:
             assert self._parent is not None
-            asyncio.create_task(
+            loop = asyncio.get_event_loop()
+            loop.create_task(
                 self._parent.log(name, record.levelname, time, message, stack), name=f"{viam._TASK_PREFIX}-LOG-{record.created}"
             ).add_done_callback(self.handle_task_result)
         except Exception as err:
