@@ -39,8 +39,6 @@ class _ModuleHandler(logging.Handler):
             _ = task.result()
         except (asyncio.CancelledError, asyncio.InvalidStateError, StreamTerminatedError):
             pass
-        except Exception:
-            self._logger.exception("Exception raised by task = %r", task)
 
     def emit(self, record: logging.LogRecord):
         assert isinstance(record, logging.LogRecord)
